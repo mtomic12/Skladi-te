@@ -1,0 +1,102 @@
+﻿@page "/KategorijaForm/{id}"
+@*@using Skladište.Client.Properties.wwwroot.JS;
+
+@inject IJSRuntime _JsRuntime*@
+
+<EditForm Model="@KategorijaBM" OnSubmit="PotvrdiFormu">
+    <h3>Uredi Kategoriju</h3>
+    <hr />
+    <div class="form-group row">
+        <label for="Naziv" class="col-sm-2 col-form-label">
+            Naziv
+        </label>
+        <div class="col-sm-10">
+            <InputText id="Naziv" class="form-control" placeholder="Naziv"
+                       @bind-Value="KategorijaBM.Naziv" />
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <label for="Opis" class="col-sm-2 col-form-label">
+            Opis
+        </label>
+        <div class="col-sm-10">
+
+            <InputTextArea id="Opis" rows="4" cols="50" placeholder="Opis" @bind-Value="KategorijaBM.Opis" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Kategorija" class="col-sm-2 col-form-label">
+            Nad Kategorija
+        </label>
+        <div class="col-sm-10">
+            <InputSelect id="NadkategorijaId" rows="4" cols="50" placeholder="Nadkategorija" @bind-Value="KategorijaBM.NadkategorijaId">
+                <option value="0">Odaberite kategoriju</option>
+                @foreach (var kategorija in kategorije)
+                {
+                    <option value="@kategorija.Id">@kategorija.Naziv</option>
+                }
+            </InputSelect>
+        </div>
+    </div>
+   @* <button type="submit" @onclick="ToastrSuccess">Spremi</button>*@
+</EditForm>
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Ime</th>
+                <th>Opis</th>
+                <th>Kreirao</th>
+                <th>Datum kreiranja</th>
+                <th>Datum Izmjene</th>
+                <th>Izmijenio</th>
+                <th>Datum Brisanja</th>
+                <th>Nad Kategorija</th>
+                <th>Tipke </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var kategorija in kategorije)
+            {
+                <tr>
+                    <td>
+                        @kategorija.Id
+                    </td>
+                    <td>
+                        @kategorija.Naziv
+                    </td>
+                    <td>
+                        @kategorija.Opis
+                    </td>
+                    <td>
+                        @kategorija.Kreirao
+                    </td>
+                    <td>
+                        @kategorija.DatumKreiranja
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        @kategorija.NadkategorijaId
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+@*
+@code
+{
+        private async Task ToastrSuccess()
+        {
+            await _JsRuntime.ToastrSuccess("Spremanje uspjesno");
+        }
+}*@
